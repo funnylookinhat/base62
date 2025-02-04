@@ -11,9 +11,9 @@
   "license": "MIT",
   "publish": {
     "include": [
-      "main.ts",
+      "mod.ts",
       "LICENSE",
       "README.md"
     ]
-  },
+  }
 }
