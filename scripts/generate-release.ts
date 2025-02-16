@@ -1,10 +1,17 @@
 import { critical, info, setup } from "@std/log";
-import { format, increment, parse, type ReleaseType } from "jsr:@std/semver";
+import {
+  format,
+  greaterThan,
+  increment,
+  parse,
+  type ReleaseType,
+} from "jsr:@std/semver";
 import conventionalChangelog from "npm:conventional-changelog";
 import "npm:conventional-changelog-angular";
 import { Bumper } from "npm:conventional-recommended-bump";
 import { resolve } from "@std/path/resolve";
 import { Octokit } from "@octokit/rest";
+import { parseArgs } from "jsr:@std/cli/parse-args";
 
 interface DenoConfig {
   version: string;
@@ -125,6 +132,13 @@ if (import.meta.dirname === undefined) {
   );
 }
 
+// Begin Work
+const flags = parseArgs(Deno.args, {
+  string: ["version"],
+});
+
+const forcedNewVersion = flags.version;
+
 // Ensure we are in project root.
 Deno.chdir(resolve(import.meta.dirname, ".."));
 
@@ -144,6 +158,9 @@ const gitStatusOutput = runCmd("git", ["status", "--porcelain"]);
 
 if (
   gitStatusOutput.stdout.length !== 0 &&
+  // This is provided mostly for testing purposes.  There may be cases where
+  // useful in extraordinary settings.  I'm leaving it undocumented for that
+  // reason.
   Deno.env.get("ALLOW_UNCLEAN_TREE") !== "ENABLED"
 ) {
   const gitDiffOutput = runCmd("git", ["--no-pager", "diff"]);
@@ -238,7 +255,20 @@ try {
 }
 
 try {
-  newVersion = format(increment(parse(currentVersion), bump.releaseType));
+  if (forcedNewVersion !== undefined) {
+    const parsedCurrentVersion = parse(currentVersion);
+    const parsedForcedNewVersion = parse(forcedNewVersion);
+    if (!greaterThan(parsedForcedNewVersion, parsedCurrentVersion)) {
+      throw new Error(
+        `Provided version (${
+          format(parsedForcedNewVersion)
+        }) is less than current one (${format(parsedCurrentVersion)})`,
+      );
+    }
+    newVersion = format(parsedForcedNewVersion);
+  } else {
+    newVersion = format(increment(parse(currentVersion), bump.releaseType));
+  }
 } catch (error) {
   isError(error);
   logAndExit(
