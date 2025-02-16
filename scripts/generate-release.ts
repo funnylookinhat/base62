@@ -4,7 +4,7 @@ import conventionalChangelog from "npm:conventional-changelog";
 import "npm:conventional-changelog-angular";
 import { Bumper } from "npm:conventional-recommended-bump";
 import { resolve } from "@std/path/resolve";
-import { Octokit } from "npm:@octokit/rest";
+import { Octokit } from "@octokit/rest";
 
 interface DenoConfig {
   version: string;
@@ -149,13 +149,13 @@ if (
   const gitDiffOutput = runCmd("git", ["--no-pager", "diff"]);
 
   const gitDiffParsedOutput = parseCommandOutput(gitDiffOutput);
-  critical(gitDiffParsedOutput.stdout);
-  critical(gitDiffParsedOutput.stderr);
 
   const { stdout } = parseCommandOutput(gitStatusOutput);
   logAndExit(
     `Working tree is not clean.  Commit or stash changes before running.`,
     stdout,
+    gitDiffParsedOutput.stdout,
+    gitDiffParsedOutput.stderr,
   );
 }
 
