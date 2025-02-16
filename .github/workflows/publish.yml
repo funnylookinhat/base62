@@ -19,5 +19,15 @@ jobs:
         uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
+      
+      - name: Lint Check
+        run: deno lint --check
 
-      - run: deno task generate-release
+      - name: Format Check
+        run: deno fmt --check
+
+      - name: Execute Tests
+        run: deno task test
+
+      - name: Generate Release
+        run: deno task generate-release
