@@ -18,7 +18,7 @@ jobs:
           deno-version: v2.x
       
       - name: Lint Check
-        run: deno lint --check
+        run: deno lint
 
       - name: Format Check
         run: deno fmt --check
