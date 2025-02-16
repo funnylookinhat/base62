@@ -1,9 +1,6 @@
-name: Deno CI 🦕
+name: Continuous Integration (PR)
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
@@ -19,5 +16,12 @@ jobs:
         uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
-      - name: Execute Tests 🧪
+      
+      - name: Lint Check
+        run: deno lint --check
+
+      - name: Format Check
+        run: deno fmt --check
+
+      - name: Execute Tests
         run: deno task test
