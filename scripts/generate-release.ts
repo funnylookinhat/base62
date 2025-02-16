@@ -255,6 +255,9 @@ try {
     let data = "";
     conventionalChangelog({
       preset: "angular",
+      pkg: {
+        path: "./deno.json",
+      },
       releaseCount: 1,
     }, { version: newVersion }).on("data", (chunk: string) => {
       data += chunk;
@@ -270,6 +273,8 @@ try {
 }
 
 info(`Generated changelog:\n${changelog}`);
+
+logAndExit("parking brake");
 
 // Update deno.json
 
