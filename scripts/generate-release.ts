@@ -159,29 +159,31 @@ if (
   );
 }
 
-// // Determine if we need to configure user.name and user.email for git
+const gitConfigUserNameOutput = runCmd("git", ["config", "user.name"]);
+const userNameOutput = parseCommandOutput(gitConfigUserNameOutput);
 
-// const gitConfigUserNameOutput = runCmd("git", ["config", "user.name"]);
-// const userNameOutput = parseCommandOutput(gitConfigUserNameOutput);
+if (userNameOutput.stdout.length === 0) {
+  runCmd("git", [
+    "config",
+    "user.name",
+    `"github-actions[bot]"`,
+  ]);
+}
 
-// if (userNameOutput.stdout.length === 0) {
-//   runCmd("git", [
-//     "config",
-//     "user.name",
-//     `"github-actions[bot]"`,
-//   ]);
-// }
+const gitConfigUserEmailOutput = runCmd("git", ["config", "user.email"]);
+const userEmailOutput = parseCommandOutput(gitConfigUserEmailOutput);
 
-// const gitConfigUserEmailOutput = runCmd("git", ["config", "user.email"]);
-// const userEmailOutput = parseCommandOutput(gitConfigUserEmailOutput);
+if (userEmailOutput.stdout.length === 0) {
+  runCmd("git", [
+    "config",
+    "user.name",
+    `"github-actions[bot]@users.noreply.github.com"`,
+  ]);
+}
 
-// if (userEmailOutput.stdout.length === 0) {
-//   runCmd("git", [
-//     "config",
-//     "user.name",
-//     `"github-actions[bot]@users.noreply.github.com"`,
-//   ]);
-// }
+// TODO - Determine if this is necessary.
+// Ideally we check before we set it so that this could be run from the
+// local commandline.
 
 // // Configure Origin to use GITHUB_REPOSITORY and GITHUB_TOKEN
 // runCmd("git", [
