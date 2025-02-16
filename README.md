@@ -11,7 +11,7 @@ BigInt type. That can be a future addition!
 
 People viewing this repository may find the workflows particularly interesting.
 This repository follows the conventional-commit standard and generates semver
-version updates automatically upon merge to main.  Additionally, upon a
+version updates automatically upon merge to main. Additionally, upon a
 successful release being generated, the repository is pushed to JSR.
 
 ## API
