@@ -1,3 +1,6 @@
+/**
+ * The character set used for encoding / decoding.
+ */
 export const CHARACTERS =
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
