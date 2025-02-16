@@ -159,8 +159,6 @@ if (
   );
 }
 
-// TODO - DETERMINE IF WE NEED ANY OF THIS
-
 // // Determine if we need to configure user.name and user.email for git
 
 // const gitConfigUserNameOutput = runCmd("git", ["config", "user.name"]);
@@ -302,7 +300,8 @@ const gitCommitOutput = runCmd("git", [
 ]);
 
 if (!gitCommitOutput.success) {
-  logAndExit(`Could not commit to git`);
+  const { stdout, stderr } = parseCommandOutput(gitCommitOutput);
+  logAndExit(`Could not commit to git`, stdout, stderr);
 }
 
 // Create Tag
@@ -317,14 +316,16 @@ const gitTagOutput = runCmd("git", [
 ]);
 
 if (!gitTagOutput.success) {
-  logAndExit(`Could not add tag to git`);
+  const { stdout, stderr } = parseCommandOutput(gitTagOutput);
+  logAndExit(`Could not add tag to git`, stdout, stderr);
 }
 
 // Push changes to git
 const gitPushOutput = runCmd("git", ["push", "--follow-tags"]);
 
 if (!gitPushOutput.success) {
-  logAndExit(`Could not push changes to git`);
+  const { stdout, stderr } = parseCommandOutput(gitPushOutput);
+  logAndExit(`Could not push changes to git`, stdout, stderr);
 }
 
 // Generate Release
