@@ -1,0 +1,23 @@
+name: Generate Release on Merge
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate-release:
+    name: Generate Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Deno Environment
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - run: deno task generate-release
