@@ -52,6 +52,9 @@ export function decode(s: string): number {
 }
 
 if (import.meta.main) {
+  console.log(`This library encodes and decodes numbers in base62.`);
+  console.log(`As an example: 1337 encodes to ${encode(1337)}`);
+  console.log(`Additionally, ${encode(7331)} decodes to 7331`);
   console.log(
     `The largest number this library can can handle is ${Number.MAX_SAFE_INTEGER}`,
   );
