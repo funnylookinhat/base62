@@ -9,6 +9,11 @@ There is a maximum supported numeric value of `9007199254740991`
 (`Number.MAX_SAFE_INTEGER`). There's no reason this couldn't also support the
 BigInt type. That can be a future addition!
 
+People viewing this repository may find the workflows particularly interesting.
+This repository follows the conventional-commit standard and generates semver
+version updates automatically upon merge to main.  Additionally, upon a
+successful release being generated, the repository is pushed to JSR.
+
 ## API
 
 ### encode(n: number): string
