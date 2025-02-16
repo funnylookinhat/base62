@@ -1,33 +1,15 @@
-name: Generate Release on Merge
+name: Publish to JSR on Release
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
 
 jobs:
-  generate-release:
-    name: Generate Release
+  publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      id-token: write
+      contents: read
+      id-token: write # The OIDC ID token is used for authentication with JSR.
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup Deno Environment
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2.x
-
-      - name: Lint Check
-        run: deno lint
-
-      - name: Format Check
-        run: deno fmt --check
-
-      - name: Execute Tests
-        run: deno task test
-
-      - name: Generate Release
-        run: deno task generate-release
+      - run: npx jsr publish

@@ -333,6 +333,7 @@ try {
     tag_name: newVersion,
     name: `Release Version ${newVersion}`,
     body: changelog,
+    draft: false,
   });
 } catch (error) {
   isError(error);
