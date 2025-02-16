@@ -290,13 +290,21 @@ Deno.writeTextFile(
   ),
 );
 
+const denoFmtOutput = runCmd("deno", ["fmt", "deno.json"]);
+
+if (!denoFmtOutput.success) {
+  const { stdout, stderr } = parseCommandOutput(denoFmtOutput);
+  logAndExit(`Could format deno.json`, stdout, stderr);
+}
+
 info(`Updated deno.json version to ${newVersion}.`);
 
 // Add deno.json to git commit
 const gitAddOutput = runCmd("git", ["add", "deno.json"]);
 
 if (!gitAddOutput.success) {
-  logAndExit(`Could not add deno.json to git`);
+  const { stdout, stderr } = parseCommandOutput(gitAddOutput);
+  logAndExit(`Could not add deno.json to git`, stdout, stderr);
 }
 
 // Commit changes
