@@ -165,6 +165,7 @@ const userNameOutput = parseCommandOutput(gitConfigUserNameOutput);
 if (userNameOutput.stdout.length === 0) {
   runCmd("git", [
     "config",
+    "--global",
     "user.name",
     `"github-actions[bot]"`,
   ]);
@@ -176,6 +177,7 @@ const userEmailOutput = parseCommandOutput(gitConfigUserEmailOutput);
 if (userEmailOutput.stdout.length === 0) {
   runCmd("git", [
     "config",
+    "--global",
     "user.name",
     `"github-actions[bot]@users.noreply.github.com"`,
   ]);
