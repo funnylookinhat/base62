@@ -146,6 +146,12 @@ if (
   gitStatusOutput.stdout.length !== 0 &&
   Deno.env.get("ALLOW_UNCLEAN_TREE") !== "ENABLED"
 ) {
+  const gitDiffOutput = runCmd("git", ["--no-pager", "diff"]);
+
+  const gitDiffParsedOutput = parseCommandOutput(gitDiffOutput);
+  critical(gitDiffParsedOutput.stdout);
+  critical(gitDiffParsedOutput.stderr);
+
   const { stdout } = parseCommandOutput(gitStatusOutput);
   logAndExit(
     `Working tree is not clean.  Commit or stash changes before running.`,
