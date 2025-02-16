@@ -274,8 +274,6 @@ try {
 
 info(`Generated changelog:\n${changelog}`);
 
-logAndExit("parking brake");
-
 // Update deno.json
 
 Deno.writeTextFile(
