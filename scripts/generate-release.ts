@@ -379,7 +379,7 @@ const octokit = new Octokit({ auth: GITHUB_TOKEN });
 const [owner, repo] = GITHUB_REPOSITORY.split("/");
 
 try {
-  await octokit.rest.repos.createRelease({
+  const { data } = await octokit.rest.repos.createRelease({
     owner,
     repo,
     tag_name: newVersion,
@@ -387,6 +387,7 @@ try {
     body: changelog,
     draft: false,
   });
+  info(`Generated Release: ${data.html_url}`);
 } catch (error) {
   isError(error);
   logAndExit(`Could not create release!`, error.message);
