@@ -26,7 +26,7 @@ jobs:
       - name: Execute Tests
         run: deno task test
 
-      - uses: funnylookinhat/action-deno-conventional-release@0.0.2
+      - uses: funnylookinhat/action-deno-conventional-release@0.0.3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
