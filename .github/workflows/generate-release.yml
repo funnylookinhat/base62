@@ -34,4 +34,3 @@ jobs:
       - uses: funnylookinhat/action-deno-conventional-release@0.0.11
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
