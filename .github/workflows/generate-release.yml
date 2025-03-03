@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Deno
-        uses: denoland/setup-deno@v1
+        uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
 
@@ -31,6 +31,6 @@ jobs:
       - name: Execute Tests
         run: deno task test
 
-      - uses: funnylookinhat/action-deno-conventional-release@0.0.11
+      - uses: funnylookinhat/action-deno-conventional-release@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
